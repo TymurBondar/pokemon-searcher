@@ -1340,6 +1340,15 @@
         "front": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/150.png",
         "back": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/150.png"
       }
+    },
+    {
+      "id": 151,
+      "name": "Cat",
+      "hp": 9,
+      "sprites": {
+        "front": "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/3-cute-cat-sampad-art.jpg",
+        "back": "https://storage.googleapis.com/pod_public/1300/152825.jpg"
+      }
     }
   ]
 }

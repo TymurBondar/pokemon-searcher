@@ -3,7 +3,6 @@ import PokemonCollection from "./PokemonCollection";
 import PokemonForm from "./PokemonForm";
 import Search from "./Search";
 import { Container } from "semantic-ui-react";
-import { v4 as uuid } from "uuid";
 
 function PokemonPage() {
   const [searchedName, setSearchedName] = useState("");
@@ -11,17 +10,22 @@ function PokemonPage() {
 
   function handleSubmit(event){
     const newPokemon = {
-      id: uuid,
+      id: cardsToDisplay.length + 2,
       name: event.target.name.value,
-      hp: event.target.hp.value,
+      hp: parseInt(event.target.hp.value),
       sprites: {
         front: event.target.frontUrl.value,
         back: event.target.backUrl.value
       }
     };
-    console.log(newPokemon);
+    fetch("http://localhost:3000/pokemon",{
+      method: "POST",
+      headers: {
+        "Content-type":"application/json"
+      },
+      body: JSON.stringify(newPokemon)
+    })
     setcardsToDisplay([...cardsToDisplay, newPokemon]);
-
   };
 
   useEffect(() => {
