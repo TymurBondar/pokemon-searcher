@@ -3,11 +3,26 @@ import PokemonCollection from "./PokemonCollection";
 import PokemonForm from "./PokemonForm";
 import Search from "./Search";
 import { Container } from "semantic-ui-react";
+import { v4 as uuid } from "uuid";
 
 function PokemonPage() {
   const [searchedName, setSearchedName] = useState("");
   const [cardsToDisplay, setcardsToDisplay] = useState([]);
 
+  function handleSubmit(event){
+    const newPokemon = {
+      id: uuid,
+      name: event.target.name.value,
+      hp: event.target.hp.value,
+      sprites: {
+        front: event.target.frontUrl.value,
+        back: event.target.backUrl.value
+      }
+    };
+    console.log(newPokemon);
+    setcardsToDisplay([...cardsToDisplay, newPokemon]);
+
+  };
 
   useEffect(() => {
     fetch("http://localhost:3000/pokemon")
@@ -15,18 +30,19 @@ function PokemonPage() {
       .then(pokemons => setcardsToDisplay(pokemons));
   }, []);
 
-  function filterByName(event){
+  function filterByName(event) {
     setSearchedName(event.target.value);
   };
- 
+
 
   return (
     <Container>
       <h1>Pokemon Searcher</h1>
       <br />
-      <PokemonForm />
+      <PokemonForm 
+        handleSubmit={handleSubmit} />
       <br />
-      <Search searchedName={searchedName} filterByName={filterByName}/>
+      <Search searchedName={searchedName} filterByName={filterByName} />
       <br />
       <PokemonCollection cardsToDisplay={cardsToDisplay.filter(card => card.name.includes(searchedName))} />
     </Container>
